@@ -7,6 +7,6 @@ This project, developed by Timothy Hebert, leverages the power of AI and environ
 1. Ensure you have Python installed on your machine.
 2. Install the required dependencies by running `pip install -r requirements.txt` in your terminal.
 3. Set up your `.env` file based on the `.env.example` provided, inserting your own OpenAI and GROQ API keys.
-4. To start the project, execute the main script (details on the main script execution will vary based on the project's structure).
+4. To start the project, execute the main script by running `streamlit run app.py`.
 
 Remember to add your `.env` file to `.gitignore` to keep your API keys secure.
