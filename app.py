@@ -1,5 +1,5 @@
 import streamlit as st
-from langchain_experimental.agents.agent_toolkits import create_csv_agent
+from langchain_experimental.agents import create_csv_agent
 from langchain_openai import ChatOpenAI
 from openai import OpenAI
 from pydub import AudioSegment
@@ -68,13 +68,14 @@ def main():
 
                 if mode == "Voice":
                     if st.button("Record Question"):
+                        
                         # Record and transcribe question
                         transcript = use_mic()
                         st.write(f"Your Question: {transcript}")
 
                         # Initialize OpenAI LLM and CSV agent
                         llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
-                        agent = create_csv_agent(llm, user_csv, verbose=True)
+                        agent = create_csv_agent(llm, user_csv, handle_parsing_errors=True,verbose=True)
 
                         if transcript:
                             response = agent.run(transcript)
@@ -102,7 +103,7 @@ def main():
                     # Text input mode
                     user_question = st.text_input("Ask a question to the CSV:")
                     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
-                    agent = create_csv_agent(llm, user_csv, verbose=True)
+                    agent = create_csv_agent(llm, user_csv, verbose=True,handle_parsing_errors=True)
 
                     if user_question:
                         response = agent.run(user_question)
@@ -111,8 +112,8 @@ def main():
             elif option == "Groq":
                 # Groq LLM provider
                 user_question = st.text_input("Ask a question to the CSV:")
-                llm = ChatGroq(temperature=0, model_name="mixtral-8x7b-32768")
-                agent = create_csv_agent(llm, user_csv, verbose=True)
+                llm = ChatGroq(temperature=0, model_name="gemma2-9b-it")
+                agent = create_csv_agent(llm, user_csv, verbose=True,handle_parsing_errors=True)
 
                 if user_question:
                     response = agent.run(user_question)

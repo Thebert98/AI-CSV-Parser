@@ -6,3 +6,5 @@ langchain_core
 langchain_groq
 dotenv
 tabulate
+pydub
+simpleaudio
